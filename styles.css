@@ -192,67 +192,22 @@ home{ display:block }
 .how-card-actions{ display:flex; gap:12px; margin-top:auto; width:100%; min-width:0 }
 
 .btn-download{
-  display:inline-flex; align-items:center; gap:12px; padding:12px 16px;
+  display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:12px 16px;
   border-radius:8px; border:1px solid #fff; background:#fff; color:#000;
   text-decoration:none; font-weight:600; cursor:pointer;
   box-shadow:0 10px 24px rgba(0,0,0,.45);
   transition: transform .25s ease, box-shadow .25s ease
 }
-.btn-download svg{ width:24px; height:24px; color:#000 }
+.btn-download svg{ width:24px; height:24px; color:#000; display:block; margin:0 }
 
 .how-card .btn-telegram{
-  display:inline-flex; align-items:center; gap:12px; padding:12px 16px;
+  display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:12px 16px;
   border-radius:8px; border:1px solid #26a5e4; background:#26a5e4; color:#fff;
   box-shadow:0 10px 24px rgba(0,0,0,.45);
-  transition: transform .25s ease, box-shadow .25s ease
+  transition: transform .25s ease, box-shadow .25s ease;
+  margin-top:0; /* важно: гасим глобальный margin-top у .btn-telegram внутри карточки */
 }
-.how-card .btn-telegram img{ width:32px; height:32px }
-
-/* ===== FIX: идеальная центровка текста в кнопках HOW (без влияния на hero) ===== */
-/* делаем кнопку grid: [иконка][текст][спейсер] => текст реально по центру */
-.how-card-actions a.btn-download,
-.how-card-actions a.btn-telegram{
-  width:100%;
-  max-width:100%;
-  min-width:0;
-  box-sizing:border-box;
-
-  display:grid;
-  grid-template-columns: 32px 1fr 32px; /* 32px = ширина под telegram-иконку, чтобы было симметрично */
-  align-items:center;
-  column-gap:12px;
-
-  justify-content:initial; /* гасим возможные "space-between" если где-то появится */
-  text-align:center;
-}
-
-/* иконка строго в центре первой колонки */
-.how-card-actions a.btn-download svg,
-.how-card-actions a.btn-telegram img{
-  justify-self:center;
-  align-self:center;
-  margin:0;
-}
-
-/* текст строго по центру */
-.how-card-actions a.btn-download span,
-.how-card-actions a.btn-telegram span{
-  justify-self:center;
-  align-self:center;
-  min-width:0;
-  text-align:center;
-}
-
-/* правая колонка-спейсер для баланса */
-.how-card-actions a.btn-download::after,
-.how-card-actions a.btn-telegram::after{
-  content:"";
-  display:block;
-  width:32px;
-  height:1px;
-  justify-self:center;
-}
-/* ===== /FIX ===== */
+.how-card .btn-telegram img{ width:24px; height:24px; display:block; margin:0 }
 
 /* Pricing */
 .pricing{ padding:60px 24px }
@@ -411,4 +366,45 @@ home{ display:block }
   width:100%; height:var(--corner-thickness); background-color: var(--corner-color)
 }
 
+/* =========================================================
+   FINAL FIX: прибиваем ровную центровку кнопок в HOW-карточках
+   (перебивает встроенный <style> в home.html)
+   ========================================================= */
+.how-card-actions > a.btn.btn-download,
+.how-card-actions > a.btn.btn-telegram{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:12px !important;
 
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+
+/* если где-то появлялись псевдо-спейсеры — выключаем */
+.how-card-actions > a.btn.btn-download::before,
+.how-card-actions > a.btn.btn-download::after,
+.how-card-actions > a.btn.btn-telegram::before,
+.how-card-actions > a.btn.btn-telegram::after{
+  content:none !important;
+  display:none !important;
+}
+
+.how-card-actions > a.btn.btn-download > svg,
+.how-card-actions > a.btn.btn-telegram > img{
+  flex:0 0 auto !important;
+  display:block !important;
+  margin:0 !important;
+}
+
+.how-card-actions > a.btn.btn-download > span,
+.how-card-actions > a.btn.btn-telegram > span{
+  flex:0 1 auto !important;
+  min-width:0 !important;
+  text-align:center !important;
+}
