@@ -452,3 +452,69 @@ home{ display:block }
   height:24px;
   flex:0 0 auto;
 }
+
+/* =========================================================
+   FINAL FIX: how-card buttons (icon + text centered as group)
+   Вставить В САМЫЙ КОНЕЦ styles.css
+   ========================================================= */
+
+.how-card-actions > a.btn.btn-download,
+.how-card-actions > a.btn.btn-telegram{
+  /* убиваем любые grid/костыли, которые дают "иконка слева, текст по центру" */
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  /* убиваем возможные grid-настройки, если где-то применились */
+  grid-template-columns: none !important;
+  grid-auto-flow: initial !important;
+  place-items: initial !important;
+
+  gap:12px !important;
+
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+
+  text-align:center !important;
+}
+
+/* если где-то был ::after/::before спейсер — отключаем именно тут */
+.how-card-actions > a.btn.btn-download::before,
+.how-card-actions > a.btn.btn-download::after,
+.how-card-actions > a.btn.btn-telegram::before,
+.how-card-actions > a.btn.btn-telegram::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* на случай если иконки где-то делали absolute — возвращаем в поток */
+.how-card-actions > a.btn.btn-download > svg,
+.how-card-actions > a.btn.btn-telegram > img{
+  position:static !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  margin:0 !important;
+  flex:0 0 auto !important;
+  display:block !important;
+}
+
+/* текст — не растягивать на всю ширину, чтобы центр был честный */
+.how-card-actions > a.btn.btn-download > span,
+.how-card-actions > a.btn.btn-telegram > span{
+  flex:0 1 auto !important;
+  min-width:0 !important;
+  text-align:center !important;
+}
+
+/* выравниваем размеры иконок (у тебя было 32px у telegram, из-за этого визуально "косит") */
+.how-card-actions > a.btn.btn-telegram > img{
+  width:24px !important;
+  height:24px !important;
+}
+
