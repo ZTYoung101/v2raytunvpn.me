@@ -408,3 +408,47 @@ home{ display:block }
   min-width:0 !important;
   text-align:center !important;
 }
+
+/* ===== HOW cards: поднять кнопку и сделать уже (mobile) ===== */
+
+.how-card{
+  /* было: padding:18px 20px; */
+  padding:18px 20px 30px; /* больше воздуха снизу => кнопка поднимется */
+}
+
+/* чуть аккуратнее балансируем текст/кнопку */
+.how-card-text{
+  margin:8px 0 10px; /* было 8px 0 14px — уменьшаем разрыв до кнопки */
+}
+
+.how-card-actions{
+  justify-content:center; /* чтобы узкая кнопка была по центру */
+}
+
+/* делаем кнопки уже только внутри how-card */
+.how-card-actions > a.btn.btn-download,
+.how-card-actions > a.btn.btn-telegram{
+  width:min(100%, 340px) !important; /* узкая, но не ломает маленькие экраны */
+}
+
+/* Mobile — ещё чуть уже и ещё чуть выше */
+@media (max-width:768px){
+  .how-card{
+    /* было: padding:16px; + height:160px */
+    padding:16px 16px 28px;
+  }
+
+  .how-card-actions > a.btn.btn-download,
+  .how-card-actions > a.btn.btn-telegram{
+    width:92% !important; /* визуально “чуть уже”, но ровно */
+  }
+}
+
+/* Small mobile — чтобы не упиралось в края */
+@media (max-width:480px){
+  .how-card-actions > a.btn.btn-download,
+  .how-card-actions > a.btn.btn-telegram{
+    width:90% !important;
+  }
+}
+
