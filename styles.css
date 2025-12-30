@@ -361,109 +361,64 @@ body{
 }
 
 /* ================================
-   MOBILE BUTTON FIX (ANTI-SLIDE)
-   Вставь в самый конец styles.css
+   FIX: MOBILE BUTTONS (HOW SECTION)
+   НЕ трогает hero-кнопки
+   Вставить в самый конец styles.css
    ================================ */
 
-/* 1) Кастомный тег <home> должен быть блочным */
-home { 
-  display: block; 
-}
+/* Кастомный тег <home> должен быть блочным, иначе бывают глюки верстки */
+home { display: block; }
 
-/* 2) Никто не имеет права вылазить шире экрана */
-html, body { 
-  max-width: 100%;
-}
-
-a, button { 
-  max-width: 100%;
-}
-
-/* 3) Хиро-кнопки: нормально ужимаются и на телефоне становятся колонкой */
-.cta-row{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  min-width: 0;
-}
-
-.cta-row .btn{
-  flex: 1 1 160px;
-  min-width: 0;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* На узких экранах — одна кнопка в строку (так они не "съезжают") */
-@media (max-width: 520px){
-  .cta-row{
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .cta-row .btn{
-    width: 100%;
-  }
-}
-
-/* 4) Кнопки в how-card: строго по центру и не вылазят */
+/* --- Чиним только кнопки внутри карточек HOW --- */
 .how-card-actions{
+  display: flex;
   width: 100%;
   min-width: 0;
 }
 
-.how-card-actions .btn{
+/* Жёстко переопределяем любые "кривые" глобальные стили .btn,
+   которые на мобилке могут уводить контент/ширину */
+.how-card-actions > a.btn{
   width: 100%;
   max-width: 100%;
-  flex: 1 1 auto;
   min-width: 0;
   box-sizing: border-box;
 
+  /* центрируем содержимое, убираем space-between */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 
-  text-align: center;
+  /* убираем возможные сдвиги/перекосы от глобальных эффектов */
+  margin: 0;
+  left: auto;
+  right: auto;
+  transform: none;
 
-  /* важно: если на каком-то телефоне текст/иконка давят ширину — пусть переносится */
-  white-space: normal;
+  /* на всякий случай, чтобы кнопка не вылезала за карточку */
+  overflow: hidden;
 }
 
-.how-card-actions .btn img,
-.how-card-actions .btn svg{
+/* Иконки не должны сжиматься/разъезжаться */
+.how-card-actions > a.btn img,
+.how-card-actions > a.btn svg{
   flex: 0 0 auto;
   display: block;
 }
 
-.how-card-actions .btn span{
+/* Текст стабильно центрируется */
+.how-card-actions > a.btn span{
+  display: block;
   min-width: 0;
-}
-
-/* 5) Большая CTA-кнопка в прайсе: тоже строго по центру */
-.pricing-cta{
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
   text-align: center;
+  line-height: 1.1;
 }
 
-.pricing-cta img{
-  flex: 0 0 auto;
-  display: block;
+/* Если у тебя где-то глобально стоит white-space: nowrap; для .btn
+   и на совсем узких экранах начнёт давить — разрешаем перенос */
+@media (max-width: 360px){
+  .how-card-actions > a.btn{
+    white-space: normal;
+  }
 }
-
-/* 6) На всякий случай: медиа не должны раздувать контейнер */
-img, video {
-  max-width: 100%;
-  height: auto;
-}
-
