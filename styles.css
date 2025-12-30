@@ -359,3 +359,111 @@ body{
   content:""; position:absolute; left:0; bottom:var(--corner-offset-y);
   width:100%; height:var(--corner-thickness); background-color: var(--corner-color)
 }
+
+/* ================================
+   MOBILE BUTTON FIX (ANTI-SLIDE)
+   Вставь в самый конец styles.css
+   ================================ */
+
+/* 1) Кастомный тег <home> должен быть блочным */
+home { 
+  display: block; 
+}
+
+/* 2) Никто не имеет права вылазить шире экрана */
+html, body { 
+  max-width: 100%;
+}
+
+a, button { 
+  max-width: 100%;
+}
+
+/* 3) Хиро-кнопки: нормально ужимаются и на телефоне становятся колонкой */
+.cta-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cta-row .btn{
+  flex: 1 1 160px;
+  min-width: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* На узких экранах — одна кнопка в строку (так они не "съезжают") */
+@media (max-width: 520px){
+  .cta-row{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cta-row .btn{
+    width: 100%;
+  }
+}
+
+/* 4) Кнопки в how-card: строго по центру и не вылазят */
+.how-card-actions{
+  width: 100%;
+  min-width: 0;
+}
+
+.how-card-actions .btn{
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  text-align: center;
+
+  /* важно: если на каком-то телефоне текст/иконка давят ширину — пусть переносится */
+  white-space: normal;
+}
+
+.how-card-actions .btn img,
+.how-card-actions .btn svg{
+  flex: 0 0 auto;
+  display: block;
+}
+
+.how-card-actions .btn span{
+  min-width: 0;
+}
+
+/* 5) Большая CTA-кнопка в прайсе: тоже строго по центру */
+.pricing-cta{
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  text-align: center;
+}
+
+.pricing-cta img{
+  flex: 0 0 auto;
+  display: block;
+}
+
+/* 6) На всякий случай: медиа не должны раздувать контейнер */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
