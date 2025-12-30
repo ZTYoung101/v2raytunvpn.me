@@ -422,3 +422,54 @@ home { display: block; }
     white-space: normal;
   }
 }
+
+/* =====================================================
+   OPTICAL CENTER FIX (HOW SECTION BUTTONS ONLY)
+   Центрует текст в кнопке с иконкой (1 и 2 шаг)
+   ===================================================== */
+
+.how-card-actions > a.btn.btn-download,
+.how-card-actions > a.btn.btn-telegram{
+  /* превращаем кнопку в сетку: [icon][text][spacer] */
+  display: grid !important;
+  grid-template-columns: 24px 1fr 24px; /* 24px чуть шире 20px, чтобы ровнее смотрелось */
+  align-items: center;
+  column-gap: 10px;
+
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  /* симметричные паддинги, чтобы не было перекоса слева/справа */
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+
+  /* на всякий случай гасим возможные глобальные сдвиги */
+  transform: none !important;
+}
+
+/* иконка — строго по центру 1-й колонки */
+.how-card-actions > a.btn.btn-download svg,
+.how-card-actions > a.btn.btn-telegram img{
+  justify-self: center;
+  align-self: center;
+  margin: 0 !important;
+}
+
+/* текст — строго по центру средней колонки */
+.how-card-actions > a.btn.btn-download span,
+.how-card-actions > a.btn.btn-telegram span{
+  justify-self: center;
+  text-align: center;
+  min-width: 0;
+}
+
+/* правая “пустая” колонка для баланса */
+.how-card-actions > a.btn.btn-download::after,
+.how-card-actions > a.btn.btn-telegram::after{
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  justify-self: center;
+}
