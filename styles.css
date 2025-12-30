@@ -410,3 +410,45 @@ home{ display:block }
   content:""; position:absolute; left:0; bottom:var(--corner-offset-y);
   width:100%; height:var(--corner-thickness); background-color: var(--corner-color)
 }
+
+/* === FIX: how buttons center as a GROUP (icon + text together) === */
+.how-card-actions{
+  width:100%;
+  min-width:0;
+}
+
+.how-card-actions a.btn-download,
+.how-card-actions a.btn-telegram{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center !important;
+  gap:12px;
+
+  /* на всякий случай гасим любые "умные" раскладки */
+  text-align:center;
+}
+
+/* если где-то раньше был спейсер/псевдоэлемент — вырубаем */
+.how-card-actions a.btn-download::after,
+.how-card-actions a.btn-telegram::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* выравниваем размер иконок, чтобы визуально не казалось "криво" */
+.how-card-actions a.btn-download svg{
+  width:24px;
+  height:24px;
+  flex:0 0 auto;
+}
+
+.how-card-actions a.btn-telegram img{
+  width:24px;
+  height:24px;
+  flex:0 0 auto;
+}
